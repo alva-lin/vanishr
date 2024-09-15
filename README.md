@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vanishr
 
-## Getting Started
+Vanishr is a self-destructing file sharing project based on web3 storage.
 
-First, run the development server:
+## Project Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Vanishr aims to provide a secure and private file sharing platform. By leveraging web3 technology, it achieves encrypted file storage and self-destructing functionality.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Key Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Encrypt and upload files, generating shareable links
+2. Parse shared links, retrieve files from the blockchain, and download decrypted content
+3. Self-destructing mechanism (to be implemented)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Current Progress
 
-## Learn More
+Currently, the project has implemented file upload and download functionality through a public aggregator/publisher API. However, direct interaction with web3 has not yet been implemented and remains hidden within the public API.
 
-To learn more about Next.js, take a look at the following resources:
+## TODO
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. [ ] Replace existing public aggregator/publisher API with on-chain operations (buying storage space, uploading files, etc.)
+2. [ ] Implement self-destructing functionality, deleting on-chain resources after download
+3. [ ] Optimize file encryption and decryption processes
+4. [ ] Improve user interface and experience
+5. [ ] Add wallet interaction
+6. [ ] Support additional features (e.g., access control, setting file expiration times)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## How to Contribute
 
-## Deploy on Vercel
+We welcome community members to participate in the development of Vanishr. If you have any suggestions or want to contribute code, please submit an issue or pull request.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
