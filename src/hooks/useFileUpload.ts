@@ -45,5 +45,12 @@ export function useFileUpload() {
     }
   };
 
-  return { upload, result, isUploading, error, isNewlyCreated };
+  const reset = () => {
+    setResult(null);
+    setIsUploading(false);
+    setError(null);
+    setIsNewlyCreated(false);
+  };
+
+  return { upload, result, isUploading, error, isNewlyCreated, reset };
 }

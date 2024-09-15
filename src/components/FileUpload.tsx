@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 
 export function FileUpload() {
   const [file, setFile] = useState<File | null>(null);
-  const { upload, result, isUploading, error, isNewlyCreated } = useFileUpload();
+  const { upload, reset, result, isUploading, error, isNewlyCreated } = useFileUpload();
   const [shareableLink, setShareableLink] = useState<string>('');
 
   useEffect(() => {
@@ -26,6 +26,8 @@ export function FileUpload() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFile(e.target.files[0]);
+      setShareableLink('');
+      reset();
     }
   };
 
@@ -51,7 +53,7 @@ export function FileUpload() {
           </Button>
         </div>
         {error && <p className="text-red-500 mt-2">{error}</p>}
-        {result && (
+        {result && !isNewlyCreated && (
           <div className="mt-4 space-y-2">
             <p className="font-semibold">File uploaded successfully!</p>
           </div>
