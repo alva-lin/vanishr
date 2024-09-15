@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -5,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { downloadFromBlockchain } from '@/lib/blockchainStorage';
 import { decryptFile } from '@/lib/encryption';
 import { MediaPreview } from './MediaPreview';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 // 下载并解密文件
 async function downloadAndDecryptFile(blobId: string, key: string) {
@@ -59,7 +62,7 @@ export function FileDownload() {
         window.URL.revokeObjectURL(url);
       }
     } catch (error) {
-      console.error('下载失败:', error);
+      console.error('Download failed:', error);
       // 这里可以添加错误提示，例如使用 toast 通知
     } finally {
       setIsDownloading(false);
@@ -67,35 +70,45 @@ export function FileDownload() {
   };
 
   return (
-    <div>
-      <h2 className="text-xl font-semibold mb-2">下载文件</h2>
-      <div className="flex gap-2 mb-2">
-        <div className="flex-1">
-          <Label htmlFor="blobId">Blob ID</Label>
-          <Input id="blobId" value={blobId} onChange={(e) => setBlobId(e.target.value)} />
+    <Card>
+      <CardHeader>
+        <CardTitle>Download File</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <Label htmlFor="blobId">Blob ID</Label>
+            <Input id="blobId" value={blobId} onChange={(e) => setBlobId(e.target.value)} />
+          </div>
+          <div>
+            <Label htmlFor="key">Key</Label>
+            <Input id="key" value={key} onChange={(e) => setKey(e.target.value)} />
+          </div>
+          <div>
+            <Label htmlFor="fileName">File Name</Label>
+            <Input id="fileName" value={fileName} onChange={(e) => setFileName(e.target.value)} />
+          </div>
+          <div>
+            <Label htmlFor="fileType">File Type</Label>
+            <Input id="fileType" value={fileType} onChange={(e) => setFileType(e.target.value)} />
+          </div>
         </div>
-        <div className="flex-1">
-          <Label htmlFor="key">Key</Label>
-          <Input id="key" value={key} onChange={(e) => setKey(e.target.value)} />
-        </div>
-        <div className="flex-1">
-          <Label htmlFor="fileName">File Name</Label>
-          <Input id="fileName" value={fileName} onChange={(e) => setFileName(e.target.value)} />
-        </div>
-        <div className="flex-1">
-          <Label htmlFor="fileType">File Type</Label>
-          <Input id="fileType" value={fileType} onChange={(e) => setFileType(e.target.value)} />
-        </div>
-      </div>
-      <Button onClick={() => handleDownload(false)} disabled={!blobId || !key || !fileName || !fileType || isDownloading}>
-        {isDownloading ? '下载中...' : '下载'}
-      </Button>
-      {previewUrl && (
-        <div className="mt-4">
-          <h3 className="text-lg font-semibold mb-2">预览</h3>
-          <MediaPreview blobUrl={previewUrl} fileType={fileType} />
-        </div>
-      )}
-    </div>
+      </CardContent>
+      <CardFooter className="flex-col items-stretch">
+        <Button
+          onClick={() => handleDownload(false)}
+          disabled={!blobId || !key || !fileName || !fileType || isDownloading}
+          className="w-full mb-4"
+        >
+          {isDownloading ? 'Downloading...' : 'Download'}
+        </Button>
+        {previewUrl && (
+          <div className="mt-4">
+            <h3 className="text-lg font-semibold mb-2">Preview</h3>
+            <MediaPreview blobUrl={previewUrl} fileType={fileType} />
+          </div>
+        )}
+      </CardFooter>
+    </Card>
   );
 }
