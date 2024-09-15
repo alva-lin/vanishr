@@ -1,0 +1,48 @@
+name: Build Next.js and update to Walrus
+
+on:
+  push:
+    branches:
+      - "master"
+    paths:
+      - "app/**"
+      - "components/**"
+      - "lib/**"
+      - "public/**"
+      - "package.json"
+      - "next.config.mjs"
+      - ".github/workflows/publish.yaml"
+  workflow_dispatch:
+    inputs:
+      update-walrus-site:
+        description: "Update the Walrus Site"
+        type: boolean
+        required: true
+        default: false
+
+concurrency: ci-${{ github.ref }}
+
+permissions:
+  contents: read
+
+jobs:
+  publish-walrus:
+    name: Update Walrus Site
+    runs-on: ubuntu-ghcloud
+    if: ${{ github.event_name == 'push' || inputs.update-walrus-site == true }}
+    env:
+      NO_COLOR: 1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/build
+      - uses: ./.github/actions/set-up-walrus
+        with:
+          SUI_ADDRESS: "${{ vars.SUI_ADDRESS }}"
+          SUI_KEYSTORE: "${{ secrets.SUI_KEYSTORE }}"
+
+      - name: Update Walrus Site
+        run: >
+          RUST_LOG=site_builder=debug,walrus=debug,info
+          site-builder
+          --config walrus-sites/site-builder/assets/builder-example.yaml
+          update out ${{ vars.WALRUS_SITE_OBJECT }}
