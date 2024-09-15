@@ -11,7 +11,6 @@ on:
       - "vite.config.ts"
       - ".github/workflows/publish.yaml"
       - ".github/actions/build/action.yaml"
-      - ".github/actions/set-up-walrus/action.yaml"
   workflow_dispatch:
     inputs:
       update-walrus-site:
@@ -35,13 +34,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/build
-      - uses: ./.github/actions/set-up-walrus
-        with:
-          SUI_ADDRESS: "${{ vars.SUI_ADDRESS }}"
-          SUI_KEYSTORE: "${{ secrets.SUI_KEYSTORE }}"
 
-      - name: Update Walrus Site
-        run: >
-          site-builder
-          --config walrus-sites/site-builder/assets/builder-example.yaml
-          update dist ${{ vars.WALRUS_SITE_OBJECT }}
+      - name: Download Walrus Sites config
+        run: |
+          mkdir -p walrus-config
+          curl -o walrus-config/config.yaml https://raw.githubusercontent.com/MystenLabs/walrus-sites/main/site-builder/assets/builder-example.yaml
+        shell: bash
+
+      - name: Deploy site to Walrus
+        uses: zktx-io/walrus-ga@v0.1.1
+        with:
+          config-path: 'walrus-config/config.yaml'
+          site-path: 'dist'
+          network: 'testnet'
+          object-id: ${{ vars.WALRUS_SITE_OBJECT }}
+        env:
+          SUI_ADDRESS: ${{ vars.SUI_ADDRESS }}
+          SUI_KEYSTORE: ${{ secrets.SUI_KEYSTORE }}
