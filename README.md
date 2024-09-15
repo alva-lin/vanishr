@@ -18,12 +18,10 @@ Currently, the project has implemented file upload and download functionality th
 
 ## TODO
 
-1. [ ] Replace existing public aggregator/publisher API with on-chain operations (buying storage space, uploading files, etc.)
-2. [ ] Implement self-destructing functionality, deleting on-chain resources after download
-3. [ ] Optimize file encryption and decryption processes
-4. [ ] Improve user interface and experience
-5. [ ] Add wallet interaction
-6. [ ] Support additional features (e.g., access control, setting file expiration times)
+1. [ ] Integrate Sui & Move contracts, implement wallet connection, and allow users to manage their shares
+2. [ ] Enhance UI/UX: implement file size limits, expiration time settings, display upload/download progress, and provide more user-friendly notifications
+3. [ ] Support folder upload and download
+4. [ ] Add permission settings, allowing users to specify share recipients
 
 ## How to Contribute
 
