@@ -1,7 +1,11 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useFileUpload } from '@/hooks/useFileUpload';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
 
 export function FileUpload() {
   const [file, setFile] = useState<File | null>(null);
@@ -14,9 +18,9 @@ export function FileUpload() {
         blobId: result.blobId,
         key: result.key,
         fileName: result.fileName,
-        fileType: result.fileType // 添加文件类型
+        fileType: result.fileType,
       });
-      const link = `${window.location.origin}?${params.toString()}`;
+      const link = `${window.location.origin}/share?${params.toString()}`;
       setShareableLink(link);
     }
   }, [result]);
@@ -34,35 +38,38 @@ export function FileUpload() {
   };
 
   return (
-    <div className="mb-8">
-      <h2 className="text-xl font-semibold mb-2">Upload File</h2>
-      <Input type="file" onChange={handleFileChange} className="mb-2" />
-      <Button onClick={handleUpload} disabled={!file || isUploading}>
-        {isUploading ? 'Uploading...' : 'Upload'}
-      </Button>
-      {error && <p className="text-red-500 mt-2">{error}</p>}
-      {result && (
-        <div className="mt-2">
-          <p>File uploaded successfully!</p>
-          <p>Blob ID: {result.blobId}</p>
-          <p>Key: {result.key}</p>
-          <p>File Name: {result.fileName}</p>
-          <p>File Type: {result.fileType}</p>
-          <p>End Epoch: {result.endEpoch}</p>
-          <p>Newly Created: {isNewlyCreated ? 'Yes' : 'No'}</p>
-          <div className="mt-2">
-            <p>Shareable Link:</p>
-            <Input
-              value={shareableLink}
-              readOnly
-              className="mb-2"
-            />
-            <Button onClick={() => navigator.clipboard.writeText(shareableLink)}>
-              Copy Link
+    <Card>
+      <CardHeader>
+        <CardTitle>Create New Share</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          <div>
+            <Label htmlFor="file-upload">Select File</Label>
+            <Input id="file-upload" type="file" onChange={handleFileChange} className="mt-1" />
+          </div>
+          <Button onClick={handleUpload} disabled={!file || isUploading} className="w-full">
+            {isUploading ? 'Uploading...' : 'Upload'}
+          </Button>
+        </div>
+        {error && <p className="text-red-500 mt-2">{error}</p>}
+        {result && (
+          <div className="mt-4 space-y-2">
+            <p className="font-semibold">File uploaded successfully!</p>
+          </div>
+        )}
+      </CardContent>
+      {shareableLink && (
+        <CardFooter className="flex-col items-stretch">
+          <Label htmlFor="shareable-link">Shareable Link:</Label>
+          <div className="flex mt-1">
+            <Input id="shareable-link" value={shareableLink} readOnly className="flex-grow" />
+            <Button onClick={() => navigator.clipboard.writeText(shareableLink)} className="ml-2">
+              Copy
             </Button>
           </div>
-        </div>
+        </CardFooter>
       )}
-    </div>
+    </Card>
   );
 }

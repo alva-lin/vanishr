@@ -28,6 +28,7 @@ runs:
     - name: Set up Sui wallet
       run: |
         mkdir -p $SUI_CONFIG_DIR
+
         CLIENT_CONF="---
         keystore:
           File: $SUI_KEYSTORE_FILE
@@ -38,7 +39,12 @@ runs:
         active_address: \"$SUI_ADDRESS\""
         echo "$CLIENT_CONF" > $SUI_CONFIG_FILE
         cat $SUI_CONFIG_FILE
-        echo '${{ inputs.SUI_KEYSTORE }}' > $SUI_KEYSTORE_FILE
+
+        SUI_KEYSTORE_FILE_CONTENT="
+        [
+          \"${{ inputs.SUI_KEYSTORE }}\"
+        ]"
+        echo "$SUI_KEYSTORE_FILE_CONTENT" > $SUI_KEYSTORE_FILE
       shell: bash
     - name: Get SUI from faucet
       run: >

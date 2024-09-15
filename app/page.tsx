@@ -1,14 +1,18 @@
-'use client';
-
 import { FileUpload } from '@/components/FileUpload';
-import { FileDownload } from '@/components/FileDownload';
+import { Layout } from '@/components/Layout';
 
 export default function Home() {
   return (
-    <main className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Vanishr - Secure File Sharing</h1>
-      <FileUpload />
-      <FileDownload />
-    </main>
+    <Layout>
+      <div className="max-w-3xl mx-auto text-center">
+        <h1 className="text-4xl font-bold mb-6">Secure Sharing, Instant Disappearance</h1>
+        <p className="text-xl mb-8">
+          Vanishr is a blockchain-based decentralized secure file sharing platform.
+          Encrypt your files, share, and then permanently delete.
+          True privacy, with no centralized data collection.
+        </p>
+        <FileUpload />
+      </div>
+    </Layout>
   );
 }
