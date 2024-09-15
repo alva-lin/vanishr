@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useFileDownload } from '@/hooks/useFileDownload'
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useFileDownload } from '@/hooks/useFileDownload';
 
 export function FileDownload() {
-  const { downloadLink, blobId, key, setBlobId, setKey, handleDownload } = useFileDownload()
+  const { downloadLink, blobId, key, setBlobId, setKey, handleDownload } = useFileDownload();
 
   return (
     <div>
@@ -19,7 +19,9 @@ export function FileDownload() {
           <Input id="key" value={key} onChange={(e) => setKey(e.target.value)} />
         </div>
       </div>
-      <Button onClick={handleDownload} disabled={!blobId || !key}>Download</Button>
+      <Button onClick={handleDownload} disabled={!blobId || !key}>
+        Download
+      </Button>
       {downloadLink && (
         <p className="mt-2">
           <a href={downloadLink} download className="text-blue-500 hover:underline">
@@ -28,5 +30,5 @@ export function FileDownload() {
         </p>
       )}
     </div>
-  )
+  );
 }

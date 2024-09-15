@@ -4,10 +4,7 @@ const PUBLISHER = 'https://publisher-devnet.walrus.space';
 export { uploadToBlockchain, downloadFromBlockchain };
 
 // 上传文件到区块链
-async function uploadToBlockchain(
-  file: Blob,
-  epochs: number = 1
-): Promise<UploadResult> {
+async function uploadToBlockchain(file: Blob, epochs: number = 1): Promise<UploadResult> {
   const url = new URL(`${PUBLISHER}/v1/store`);
   url.searchParams.append('epochs', epochs.toString());
 

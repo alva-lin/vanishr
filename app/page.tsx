@@ -1,7 +1,7 @@
-"use client"
+'use client';
 
-import { FileUpload } from '@/components/FileUpload'
-import { FileDownload } from '@/components/FileDownload'
+import { FileUpload } from '@/components/FileUpload';
+import { FileDownload } from '@/components/FileDownload';
 
 export default function Home() {
   return (
@@ -10,5 +10,5 @@ export default function Home() {
       <FileUpload />
       <FileDownload />
     </main>
-  )
+  );
 }
