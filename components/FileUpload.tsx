@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useFileUpload } from '@/hooks/useFileUpload';
@@ -6,6 +6,20 @@ import { useFileUpload } from '@/hooks/useFileUpload';
 export function FileUpload() {
   const [file, setFile] = useState<File | null>(null);
   const { upload, result, isUploading, error, isNewlyCreated } = useFileUpload();
+  const [shareableLink, setShareableLink] = useState<string>('');
+
+  useEffect(() => {
+    if (result) {
+      const params = new URLSearchParams({
+        blobId: result.blobId,
+        key: result.key,
+        fileName: result.fileName,
+        fileType: result.fileType // 添加文件类型
+      });
+      const link = `${window.location.origin}?${params.toString()}`;
+      setShareableLink(link);
+    }
+  }, [result]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -36,6 +50,17 @@ export function FileUpload() {
           <p>File Type: {result.fileType}</p>
           <p>End Epoch: {result.endEpoch}</p>
           <p>Newly Created: {isNewlyCreated ? 'Yes' : 'No'}</p>
+          <div className="mt-2">
+            <p>Shareable Link:</p>
+            <Input
+              value={shareableLink}
+              readOnly
+              className="mb-2"
+            />
+            <Button onClick={() => navigator.clipboard.writeText(shareableLink)}>
+              Copy Link
+            </Button>
+          </div>
         </div>
       )}
     </div>

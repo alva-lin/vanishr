@@ -4,17 +4,17 @@ Vanishr is a self-destructing file sharing project based on web3 storage.
 
 ## Project Overview
 
-Vanishr aims to provide a secure and private file sharing platform. By leveraging web3 technology, it achieves encrypted file storage and self-destructing functionality.
+Vanishr aims to provide a secure and private file sharing platform. By leveraging web3 technology and the Walrus storage system, it achieves encrypted file storage and self-destructing functionality.
 
 ## Key Features
 
 1. Encrypt and upload files, generating shareable links
-2. Parse shared links, retrieve files from the blockchain, and download decrypted content
+2. Parse shared links, retrieve files from the Walrus storage system, and download decrypted content
 3. Self-destructing mechanism (to be implemented)
 
 ## Current Progress
 
-Currently, the project has implemented file upload and download functionality through a public aggregator/publisher API. However, direct interaction with web3 has not yet been implemented and remains hidden within the public API.
+Currently, the project has implemented file upload and download functionality through the public aggregator/publisher API. Direct interaction with sui blockchain has been implemented for handling file storage and retrieval.
 
 ## TODO
 
