@@ -5,12 +5,10 @@ on:
     branches:
       - "master"
     paths:
-      - "app/**"
-      - "components/**"
-      - "lib/**"
+      - "src/**"
       - "public/**"
       - "package.json"
-      - "next.config.mjs"
+      - "vite.config.ts"
       - ".github/workflows/publish.yaml"
       - ".github/actions/build/action.yaml"
       - ".github/actions/set-up-walrus/action.yaml"
@@ -46,4 +44,4 @@ jobs:
         run: >
           site-builder
           --config walrus-sites/site-builder/assets/builder-example.yaml
-          update out ${{ vars.WALRUS_SITE_OBJECT }}
+          update dist ${{ vars.WALRUS_SITE_OBJECT }}

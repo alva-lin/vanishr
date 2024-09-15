@@ -1,5 +1,5 @@
-name: Build Next.js Project
-description: Generate static site from Next.js project
+name: Build Project
+description: Generate static site from Vite project
 
 runs:
   using: "composite"
@@ -31,16 +31,16 @@ runs:
       run: pnpm install
       shell: bash
 
-    - name: Build Next.js project
+    - name: Build Vite project
       run: pnpm run build
       shell: bash
 
     - name: Check build output
       run: |
-        if [ -d "out" ]; then
-          echo "Build successful. Static output generated in 'out' directory."
+        if [ -d "dist" ]; then
+          echo "Build successful. Static output generated in 'dist' directory."
         else
-          echo "Build failed or 'out' directory not found."
+          echo "Build failed or 'dist' directory not found."
           exit 1
         fi
       shell: bash
