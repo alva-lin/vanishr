@@ -12,6 +12,8 @@ on:
       - "package.json"
       - "next.config.mjs"
       - ".github/workflows/publish.yaml"
+      - ".github/actions/build/action.yaml"
+      - ".github/actions/set-up-walrus/action.yaml"
   workflow_dispatch:
     inputs:
       update-walrus-site:
@@ -28,7 +30,7 @@ permissions:
 jobs:
   publish-walrus:
     name: Update Walrus Site
-    runs-on: ubuntu-ghcloud
+    runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' || inputs.update-walrus-site == true }}
     env:
       NO_COLOR: 1
