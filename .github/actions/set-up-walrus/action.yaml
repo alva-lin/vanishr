@@ -38,12 +38,7 @@ runs:
         active_address: \"$SUI_ADDRESS\""
         echo "$CLIENT_CONF" > $SUI_CONFIG_FILE
         cat $SUI_CONFIG_FILE
-        SUI_KEYSTORE_FILE_CONTENT="
-        [
-          \"$SUI_KEYSTORE\"
-        ]
-        "
-        echo "$SUI_KEYSTORE_FILE_CONTENT" > $SUI_KEYSTORE_FILE
+        echo '${{ inputs.SUI_KEYSTORE }}' > $SUI_KEYSTORE_FILE
       shell: bash
     - name: Get SUI from faucet
       run: >
