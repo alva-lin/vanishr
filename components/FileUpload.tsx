@@ -20,7 +20,7 @@ export function FileUpload() {
         fileName: result.fileName,
         fileType: result.fileType,
       });
-      const link = `${window.location.origin}/share?${params.toString()}`;
+      const link = `${window.location.origin}/#share?${params.toString()}`;
       setShareableLink(link);
     }
   }, [result]);
